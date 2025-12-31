@@ -73,10 +73,10 @@ function checkAnswer() {
     if (clean(userGuess) === clean(correctAnswer)) {
         score++;
         document.getElementById('score').innerText = score;
-        document.getElementById('feedback').innerText = "🎯 CORRECT! It was " + currentSong.name;
+        document.getElementById('feedback').innerText = "✅ " + currentSong.name;
         document.getElementById('feedback').style.color = "#00ff00";
     } else {
-        document.getElementById('feedback').innerText = "❌ WRONG! Keep listening...";
+        document.getElementById('feedback').innerText = "❌ ";
         document.getElementById('feedback').style.color = "#ff0000";
     }
 }
