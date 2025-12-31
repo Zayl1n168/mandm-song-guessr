@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eminem Guessing Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Shady Guesser</h1>
+
+    <div id="game-container">
+        <button id="play-btn" onclick="playSong()">Play Random Snippet</button>
+        <br>
+        <input type="text" id="guess-input" placeholder="Type song name...">
+        <br>
+        <button onclick="checkAnswer()">Submit Guess</button>
+        <p id="feedback"></p>
+        <p>Score: <span id="score">0</span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
