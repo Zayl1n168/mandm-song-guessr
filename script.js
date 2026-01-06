@@ -84,7 +84,7 @@ const songs = [
     // --- CURTAIN CALL ---
     { name: "FACK", file: "audio/FACK.mp3" },
     { name: "Shake That", file: "audio/Shake_That.mp3" },
-    { name: "When I'm Gone", file: "audio/When_I'm_Gone.mp3" }
+    { name: "When I'm Gone", file: "audio/When_I'm_Gone.mp3" },
     { name: "Sing For The Moment", file: "audio/Sing_For_The_Moment.mp3" }
 ];
 
