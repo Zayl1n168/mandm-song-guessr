@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eminem Guessing Game</title>
+    <title>Shady Guesser</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>Eminem Song Guesser</h1>
+    <h1>Shady Guesser</h1>
 
     <div id="game-container">
-        <button id="play-btn" onclick="playSong()">Play Random Song</button>
+        <button id="play-btn" onclick="playSong()">Play Random Snippet</button>
         <br>
         <input type="text" id="guess-input" placeholder="Type song name...">
         <br>
         <button onclick="checkAnswer()">Submit Guess</button>
+        <button id="reveal-btn" onclick="revealSong()">Reveal Song</button>
+        
         <p id="feedback"></p>
-        <p>Score: <span id="score">0</span></p>
+        <div id="stats">
+            <p>Total Score: <span id="score">0</span></p>
+            <p>Current Streak: <span id="streak">0</span></p>
+        </div>
     </div>
 
     <script src="script.js"></script>
