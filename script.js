@@ -102,6 +102,7 @@ function playSong() {
     audio.src = currentSong.file;
     audio.play().catch(e => {
         console.error("Missing file:", currentSong.file);
+        // If a file is missing, we try picking another one automatically
         playSong(); 
     });
 }
@@ -122,7 +123,7 @@ function checkAnswer() {
         document.getElementById('feedback').innerText = "🎯 CORRECT! It was " + currentSong.name;
         document.getElementById('feedback').style.color = "#00ff00";
         audio.pause();
-        currentSong = null; // Prevent double submitting
+        currentSong = null; 
     } else {
         streak = 0; // Reset streak on wrong answer
         updateDisplay();
