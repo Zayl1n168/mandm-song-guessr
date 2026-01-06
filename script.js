@@ -81,14 +81,15 @@ const songs = [
     { name: "Love the Way You Lie", file: "audio/Love_the_Way_You_Lie.mp3" },
     { name: "You're Never Over", file: "audio/You're_Never_Over.mp3" },
 
-    // --- CURTAIN CALL (Unique Tracks) ---
+    // --- CURTAIN CALL ---
     { name: "FACK", file: "audio/FACK.mp3" },
     { name: "Shake That", file: "audio/Shake_That.mp3" },
     { name: "When I'm Gone", file: "audio/When_I'm_Gone.mp3" }
 ];
 
 let currentSong = null;
-let score = 0;
+let totalScore = 0;
+let streak = 0;
 let audio = new Audio();
 
 function playSong() {
@@ -99,8 +100,7 @@ function playSong() {
     
     audio.src = currentSong.file;
     audio.play().catch(e => {
-        console.error("Audio error:", currentSong.file);
-        document.getElementById('feedback').innerText = "File missing, skipping...";
+        console.error("Missing file:", currentSong.file);
         playSong(); 
     });
 }
@@ -111,17 +111,36 @@ function checkAnswer() {
     const userGuess = document.getElementById('guess-input').value.trim().toLowerCase();
     const correctAnswer = currentSong.name.toLowerCase();
 
-    // Cleaning strings: remove spaces and punctuation for easier matching
+    // Clean logic for punctuation/spaces
     const clean = (str) => str.replace(/[^\w]/gi, '').replace(/\s+/g, '');
 
     if (clean(userGuess) === clean(correctAnswer)) {
-        score++;
-        document.getElementById('score').innerText = score;
+        totalScore++;
+        streak++;
+        updateDisplay();
         document.getElementById('feedback').innerText = "🎯 CORRECT! It was " + currentSong.name;
         document.getElementById('feedback').style.color = "#00ff00";
         audio.pause();
+        currentSong = null; // Prevent double submitting
     } else {
-        document.getElementById('feedback').innerText = "❌ WRONG! Try again.";
+        streak = 0; // Reset streak on wrong answer
+        updateDisplay();
+        document.getElementById('feedback').innerText = "❌ WRONG! Streak Reset.";
         document.getElementById('feedback').style.color = "#ff0000";
     }
+}
+
+function revealSong() {
+    if (!currentSong) return;
+    document.getElementById('feedback').innerText = "The song was: " + currentSong.name;
+    document.getElementById('feedback').style.color = "#ffcc00";
+    streak = 0; // Reveal counts as a fail for the streak
+    updateDisplay();
+    audio.pause();
+    currentSong = null;
+}
+
+function updateDisplay() {
+    document.getElementById('score').innerText = totalScore;
+    document.getElementById('streak').innerText = streak;
 }
