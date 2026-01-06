@@ -31,16 +31,60 @@ const songs = [
     { name: "Under the Influence", file: "audio/Under_the_Influence.mp3" },
     { name: "Criminal", file: "audio/Criminal.mp3" },
 
-    // --- CURTAIN CALL (DELUXE/NEW TRACKS) ---
+    // --- ENCORE ---
+    { name: "Evil Deeds", file: "audio/Evil_Deeds.mp3" },
+    { name: "Never Enough", file: "audio/Never_Enough.mp3" },
+    { name: "Yellow Brick Road", file: "audio/Yellow_Brick_Road.mp3" },
+    { name: "Like Toy Soldiers", file: "audio/Like_Toy_Soldiers.mp3" },
+    { name: "Mosh", file: "audio/Mosh.mp3" },
+    { name: "Puke", file: "audio/Puke.mp3" },
+    { name: "My 1st Single", file: "audio/My_1st_Single.mp3" },
+    { name: "Rain Man", file: "audio/Rain_Man.mp3" },
+    { name: "Big Weenie", file: "audio/Big_Weenie.mp3" },
+    { name: "Just Lose It", file: "audio/Just_Lose_It.mp3" },
+    { name: "Ass Like That", file: "audio/Ass_Like_That.mp3" },
+    { name: "Mockingbird", file: "audio/Mockingbird.mp3" },
+    { name: "One Shot 2 Shot", file: "audio/One_Shot_2_Shot.mp3" },
+    { name: "Encore", file: "audio/Encore.mp3" },
+
+    // --- RELAPSE ---
+    { name: "3am", file: "audio/3am.mp3" },
+    { name: "My Mom", file: "audio/My_Mom.mp3" },
+    { name: "Insane", file: "audio/Insane.mp3" },
+    { name: "Bagpipes from Baghdad", file: "audio/Bagpipes_from_Baghdad.mp3" },
+    { name: "Hello", file: "audio/Hello.mp3" },
+    { name: "Same Song & Dance", file: "audio/Same_Song_&_Dance.mp3" },
+    { name: "We Made You", file: "audio/We_Made_You.mp3" },
+    { name: "Medicine Ball", file: "audio/Medicine_Ball.mp3" },
+    { name: "Stay Wide Awake", file: "audio/Stay_Wide_Awake.mp3" },
+    { name: "Old Time's Sake", file: "audio/Old_Time's_Sake.mp3" },
+    { name: "Must Be The Ganja", file: "audio/Must_Be_The_Ganja.mp3" },
+    { name: "Beautiful", file: "audio/Beautiful.mp3" },
+    { name: "Crack A Bottle", file: "audio/Crack_A_Bottle.mp3" },
+    { name: "Underground", file: "audio/Underground.mp3" },
+
+    // --- RECOVERY ---
+    { name: "Cold Wind Blows", file: "audio/Cold_Wind_Blows.mp3" },
+    { name: "Talkin' 2 Myself", file: "audio/Talkin'_2_Myself.mp3" },
+    { name: "On Fire", file: "audio/On_Fire.mp3" },
+    { name: "Won't Back Down", file: "audio/Won't_Back_Down.mp3" },
+    { name: "W.T.P.", file: "audio/W.T.P..mp3" },
+    { name: "Going Through Changes", file: "audio/Going_Through_Changes.mp3" },
+    { name: "Not Afraid", file: "audio/Not_Afraid.mp3" },
+    { name: "Seduction", file: "audio/Seduction.mp3" },
+    { name: "No Love", file: "audio/No_Love.mp3" },
+    { name: "Space Bound", file: "audio/Space_Bound.mp3" },
+    { name: "Cinderella Man", file: "audio/Cinderella_Man.mp3" },
+    { name: "25 to Life", file: "audio/25_to_Life.mp3" },
+    { name: "So Bad", file: "audio/So_Bad.mp3" },
+    { name: "Almost Famous", file: "audio/Almost_Famous.mp3" },
+    { name: "Love the Way You Lie", file: "audio/Love_the_Way_You_Lie.mp3" },
+    { name: "You're Never Over", file: "audio/You're_Never_Over.mp3" },
+
+    // --- CURTAIN CALL (Unique Tracks) ---
     { name: "FACK", file: "audio/FACK.mp3" },
     { name: "Shake That", file: "audio/Shake_That.mp3" },
-    { name: "When I'm Gone", file: "audio/When_I'm_Gone.mp3" },
-    { name: "Lose Yourself", file: "audio/Lose_Yourself.mp3" },
-    { name: "Without Me", file: "audio/Without_Me.mp3" },
-    { name: "Sing for the Moment", file: "audio/Sing_for_the_Moment.mp3" },
-    { name: "Mockingbird", file: "audio/Mock_ingbird.mp3" },
-    { name: "Like Toy Soldiers", file: "audio/Like_Toy_Soldiers.mp3" },
-    { name: "Cleanin' Out My Closet", file: "audio/Cleanin'_Out_My_Closet.mp3" }
+    { name: "When I'm Gone", file: "audio/When_I'm_Gone.mp3" }
 ];
 
 let currentSong = null;
@@ -51,13 +95,13 @@ function playSong() {
     document.getElementById('feedback').innerText = "Listening...";
     document.getElementById('guess-input').value = "";
     
-    // Pick a random song from the list
     currentSong = songs[Math.floor(Math.random() * songs.length)];
     
     audio.src = currentSong.file;
     audio.play().catch(e => {
-        console.error("Playback failed. Make sure the file exists in the audio folder:", currentSong.file);
-        document.getElementById('feedback').innerText = "Error loading song. Try again.";
+        console.error("Audio error:", currentSong.file);
+        document.getElementById('feedback').innerText = "File missing, skipping...";
+        playSong(); 
     });
 }
 
@@ -67,16 +111,17 @@ function checkAnswer() {
     const userGuess = document.getElementById('guess-input').value.trim().toLowerCase();
     const correctAnswer = currentSong.name.toLowerCase();
 
-    // Cleaning strings for better matching (removes punctuation and spaces)
-    const clean = (str) => str.replace(/[^\w\s]/gi, '').replace(/\s+/g, '');
+    // Cleaning strings: remove spaces and punctuation for easier matching
+    const clean = (str) => str.replace(/[^\w]/gi, '').replace(/\s+/g, '');
 
     if (clean(userGuess) === clean(correctAnswer)) {
         score++;
         document.getElementById('score').innerText = score;
-        document.getElementById('feedback').innerText = "✅ " + currentSong.name;
+        document.getElementById('feedback').innerText = "🎯 CORRECT! It was " + currentSong.name;
         document.getElementById('feedback').style.color = "#00ff00";
+        audio.pause();
     } else {
-        document.getElementById('feedback').innerText = "❌ ";
+        document.getElementById('feedback').innerText = "❌ WRONG! Try again.";
         document.getElementById('feedback').style.color = "#ff0000";
     }
 }
